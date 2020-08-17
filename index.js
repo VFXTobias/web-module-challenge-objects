@@ -6,11 +6,16 @@ const breakfastBurrito = {name: "Breakfast Burrito", price: 16, category:"Breakf
 
 /* Task 1a: write a function to return more menu items with the same format as the items above. */
 
-function createMenuItem(name, cost, category){
-    /* Code here */
+function createMenuItem(name, price, category){
+  return {name, price, category};
 }
 
+
 /* Task 1b: use your function to create 3 more menu items. You may add any items to the menu that you'd like */
+console.log(createMenuItem('fries', 2, 'Side'));
+console.log(createMenuItem('ice cream', 3, 'Dessert'));
+console.log(createMenuItem('soda', 1, 'Drinks'));
+
 
 
 
@@ -24,7 +29,14 @@ and should return a number.
 
 For example, burger.discount("teacher") would return 13.5 and burger.discount("public") would return 16.2*/
 
-
+burger.discount = function(str){
+  if (str ==="teacher" || str ==="student"){
+    return this.price * .75;
+  }else{
+    return this.price * .90;
+  }
+}
+console.log(burger.discount('teacher'));
 
 ///////////////Reviews (MVP)///////////////////
 
@@ -40,11 +52,17 @@ const reviews = [{name: "Daniela", rating: 5, feedback:"Beautiful atmosphere and
 
 /* Task 3: Console.log just Julius' feedback */
 
+console.log(reviews[5].feedback);
+
 
 /* Task 4: Add a new rating with your (fictitious) opinions of the restaurant in the same format as the reviews above. */
 
+reviews.push({name: "Tobias", rating: 4, feedback: "I liked the atmosphere and the food was really good."});
+console.log(reviews);
 
-/* Task 5: Add the following feedback to Reyna's rating - "this place is chill with really cool people, great for getting work done on weekdays"
+/* Task 5: Add the following feedback to Reyna's rating - "this place is chill with really cool people, great for getting work done on weekdays"*/
+
+reviews[7].feedback = "this place is chill with really cool people, great for getting work done on weekdays";
 
 /*  Task 6: Write a function to return a review based on the index of the review in the array.
 
@@ -58,9 +76,11 @@ and should return a string in the format `{name} gave the restaurant a {rating},
  * For example, if getReviewByIndex is invoked with reviews and the number 0
  * it will return `Daniela gave the restaurant a 5 star review and their feedback was: Beautiful atmosphere and wonderful vegan options!`
 */
-function getReviewByIndex(reviews, index) {
-    /* code here */
+function getReviewByIndex(arr, i) {
+    return (`${arr[i].name} gave the restaurant a ${arr[i].rating}, and their feedback was ${arr[i].feedback}`);
   }
+
+console.log(getReviewByIndex(reviews,5));
   
 
 /* Task 7: Write a function to get information about the most recent review called `getLastReview`
@@ -72,10 +92,12 @@ and should return a string in the format `name} gave the restaurant a {rating}, 
 
 For example, if getLastReview is invoked passing the reviews array it will return `Reyna gave the restaurant a 3.5 star review and their feedback was: "this place is chill with really cool people, great for getting work done on weekdays"`.
 */
-function getLastReview(/* code here */) {
-    /* code here */
-  } 
-
+function getLastReview(arr) {
+    let i = arr.length -1;
+    return (`${arr[i].name} gave the restaurant a ${arr[i].rating}, and their feedback was: ${arr[i].feedback}`);
+  
+}
+console.log(getLastReview(reviews));
 
 ///////////////🍔☕️🍽 STRETCH🍔☕️🍽////////////////////
 
@@ -91,9 +113,14 @@ function getLastReview(/* code here */) {
     {name:"Lauren", rating: 4, feedback: "Absolutely love that they have karaoke Fridays! Food and drink selection is okay."}]
 */
 
- function getReviewByRating(/* code here */) {
-    /* code here */
+ function getReviewByRating(arr, r) {
+    for(i=0; i< arr.length; i++){
+      if(arr[i].rating > r){
+        console.log(`${arr[i].name}, ${arr[i].rating}, ${arr[i].feedback}`);
+      }
+    }
   }
+console.log(getReviewByRating(reviews, 4));
 
   
 /** STRETCH 2: Write a function called 'getLongestReview' that returns an array containing all reviews longer than 15 words. 
@@ -109,10 +136,16 @@ and should return an array of objects.
     {name: "Brett", rating: 3, feedback: "great selection of snacks and a nice cafe area to get work done during the day."},
     {name: "Julius", rating: 2, feedback: "I was largely unimpressed by this venue. Nothing special on the menu and too expensive. The atmosphere is polarizing, and not for me, but I think some would like it." }]
 */
-  function getLongReviews(/* code here */) {
-    /* code here */
+  function getLongReviews(arr) {
+    for(i=0; i <arr.length; i++){
+      let wordCount = arr[i].feedback.split(' ').length;
+        if (wordCount > 15){
+          console.log(`${arr[i].name}, ${arr[i].rating}, ${arr[i].feedback}`);
+        }
+    }
   }
-  
+   
+  console.log(getLongReviews(reviews));
 
 /* STRETCH 3:  This challenge is not related to the data above! 
 
@@ -132,7 +165,20 @@ The returned object should have the following characteristics:
 */
 
 
-function carMaker(/* code here */) {
-    /* code here */
-    
-}
+function carMaker(odo) {
+    let car = {
+      odometer: odo,
+      drive: function(dist)
+      {
+        return this.odometer += dist;
+      }
+    }
+  console.log(`Before the drive: ${car.odometer}`);
+  car.drive(500);
+  console.log(`After the drive: ${car.odometer}`);
+
+    return (car.odometer);
+    }
+
+carMaker(10000);
+
